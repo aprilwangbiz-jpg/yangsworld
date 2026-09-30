@@ -169,6 +169,70 @@ The site is hosted free on **GitHub Pages**; photos live in **Supabase**. One-ti
 What's public: the code and artwork (the repo is public) and every photo (anyone
 with the link can view). What's protected: adding and renaming photos.
 
+## How to contribute
+
+Want to change the site (colors, doors, text, rooms)? Changes go through a
+pull request, and April reviews and merges them. Merging to `main` publishes
+the live site automatically.
+
+### 1. Get a copy
+
+- **Collaborator** (April added you under Settings → Collaborators): clone this
+  repo directly.
+- **Anyone else:** click **Fork** at the top of the repo page, then clone your fork.
+
+```bash
+git clone https://github.com/aprilwangbiz-jpg/yangsworld.git   # or your fork's URL
+cd yangsworld
+```
+
+### 2. Set up (one time)
+
+1. Install **Node.js 20 LTS** or newer from https://nodejs.org.
+2. Install packages: `npm install`
+3. Create a file called `.env.local` in the project folder (copy `.env.example`)
+   with these values:
+
+   ```
+   VITE_SUPABASE_URL=https://sjlwhwtpfaspaaegnzvb.supabase.co
+   VITE_SUPABASE_ANON_KEY=sb_publishable_rWYxZ3wQeIylfOBHnNQtlA_HhGK__MA
+   VITE_UPLOADER_EMAIL=<ask April>
+   ```
+
+   The URL and key are public (they're in the live site too); the email is
+   only needed to test uploads. Never commit `.env.local` — it's gitignored.
+
+### 3. Make a change and preview it
+
+```bash
+git checkout -b my-change        # a branch for your change
+npm run dev                      # open the printed http://localhost:5173
+```
+
+(On Windows you can double-click `run_dev.bat` instead.) The page reloads as
+you save files. See [Where to change things](#where-to-change-things) for which
+file controls what. Run `npm run build` once before sending to make sure it
+still builds.
+
+> **Heads-up:** your local copy uses the **real** photo albums. Anything you
+> upload or rename while testing shows up on the live site for everyone. Only
+> test uploads you're happy to keep, or ask April to delete them afterwards.
+
+### 4. Send it for review
+
+```bash
+git add -A
+git commit -m "feat: short description of the change"
+git push -u origin my-change
+```
+
+Then open the repo on GitHub and click **Compare & pull request**. Describe what
+you changed (a screenshot helps for visual changes). Once April merges it, the
+live site updates within a couple of minutes.
+
+Commit messages use the form `type: description`, where type is `feat`, `fix`,
+`docs`, `refactor`, `style` or `chore`.
+
 ## Project structure
 
 ```

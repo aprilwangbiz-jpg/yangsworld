@@ -4,6 +4,9 @@ A scroll-driven 3D hallway built with React Three Fiber. You walk down a
 cobalt-blue colored-pencil corridor, and every door opens into a photo room you
 can fill with your own pictures and name them.
 
+- **Live site:** https://aprilwangbiz-jpg.github.io/yangsworld/
+- **Repo:** https://github.com/aprilwangbiz-jpg/yangsworld
+
 Not affiliated with itomdev.com or Tomasz Szmajda.
 
 ## Getting started
@@ -40,14 +43,14 @@ Scroll to walk forward; move the mouse for a little side-to-side parallax.
   wall with a big leaf door that swings open as you walk up and closes again if
   you scroll back.
 
-| Door | Side | Album folder |
+| Door | Side | Album id |
 |---|---|---|
-| **GARDEN** | left | `public/uploads/garden/` |
-| **ABOUT** | right | `public/uploads/about/` |
-| **FAMILY** | left | `public/uploads/family/` |
-| **PORTFOLIO** | right | `public/uploads/portfolio/` |
-| **TRAVEL** | left | `public/uploads/travel/` |
-| **FRIENDS** | right | `public/uploads/friends/` |
+| **GARDEN** | left | `garden` |
+| **ABOUT** | right | `about` |
+| **FAMILY** | left | `family` |
+| **PORTFOLIO** | right | `portfolio` |
+| **TRAVEL** | left | `travel` |
+| **FRIENDS** | right | `friends` |
 
 ## Photo rooms
 
@@ -64,6 +67,31 @@ password.
   box and press **Save**; the name shows under the photo on the line. New
   uploads start out named after their original filename.
 - **‹** (top left) goes back to the hallway.
+
+### Who can do what
+
+| | Anyone with the link | With the shared password |
+|---|---|---|
+| Walk the hallway, open every room | ✓ | ✓ |
+| See photos and their names | ✓ | ✓ |
+| Add photos (any of the six rooms) | — | ✓ |
+| Rename photos (any room) | — | ✓ |
+| Delete photos | — | — (Supabase dashboard only) |
+
+The password isn't tied to a room: whoever has it can add to and rename in all
+six. Limiting someone to certain rooms would need separate logins.
+
+### Devices
+
+Works in current Safari, Chrome, Edge and Firefox on Mac, Windows, iPhone, iPad
+and Android — nothing to install. Notes:
+
+- **iPhone / iPad:** picking from the photo library works (iOS hands the site a
+  JPEG copy).
+- **Mac:** `.HEIC` files chosen straight from Finder aren't accepted; pick from
+  the Photos app or export as JPEG first.
+- The layout has been tested on desktop screens; check it on a phone before
+  relying on it there.
 
 ## Where to change things
 
@@ -99,6 +127,23 @@ upload / rename), `src/hooks/useUploader.js` (password unlock).
 Photos uploaded before Supabase are in `local-photos-backup/` (not uploaded to
 GitHub); re-add them through the site if you want them online.
 
+## Upkeep
+
+- **Publishing changes:** commit and push to `main`; GitHub Actions rebuilds and
+  republishes in 1–2 minutes (Actions tab shows progress).
+- **Supabase pauses after ~1 week without visits** on the free plan. Photos are
+  kept; open the project in the Supabase dashboard and click **Restore**.
+- **Changing the shared password:** Supabase → Authentication → Users → delete
+  the uploader user, then *Add user* again with the **same email** and the new
+  password (*Auto Confirm User* on). Browsers that were unlocked get signed out
+  when their session expires; tell people the new password.
+- **Deleting a photo:** Supabase → Table Editor → `photos` → delete the row, and
+  Storage → `photos` → delete its file.
+- **Storage use:** Supabase → Storage shows how much of the free 1 GB is used.
+- **Running from a copy of the folder** (instead of the link) needs Node.js,
+  `npm install`, and a `.env.local` with the Supabase values — the link is
+  simpler for anyone else.
+
 ## Sharing it online
 
 The site is hosted free on **GitHub Pages**; photos live in **Supabase**. One-time setup:
@@ -111,13 +156,14 @@ The site is hosted free on **GitHub Pages**; photos live in **Supabase**. One-ti
 2. **Local** — put those values and the uploader email in `.env.local`
    (see `.env.example`) and check uploads work with `npm run dev`.
 3. **GitHub** — create a new **public** repository (free Pages needs public),
-   then push this folder to it.
+   then push this folder to it. (Done: `aprilwangbiz-jpg/yangsworld`.)
    - Settings → Secrets and variables → Actions → **Variables**: add
      `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`, `VITE_UPLOADER_EMAIL`.
    - Settings → Pages → Source: **GitHub Actions**.
    - Every push to `main` rebuilds and publishes via
      `.github/workflows/deploy.yml`. The site appears at
-     `https://<your-username>.github.io/<repo-name>/`.
+     `https://<your-username>.github.io/<repo-name>/` — here
+     https://aprilwangbiz-jpg.github.io/yangsworld/.
 4. **Share** the link, and give the password only to people who should upload.
 
 What's public: the code and artwork (the repo is public) and every photo (anyone
@@ -135,8 +181,8 @@ src/
 ├── three/             # homePalette, canvas-texture generators, clothesline math
 ├── hooks/             # useFamilyPhotos (list / upload / rename), useUploader (password)
 ├── data/              # rooms.js — door labels + album ids
-└── styles/            # design tokens + global CSS
 ├── lib/               # supabase.js (connection), resizeImage.js
+└── styles/            # design tokens + global CSS
 public/images/         # lady.webp (entrance), leaf-door.webp (door painting)
 supabase/setup.sql     # one-time database + storage + access rules
 .github/workflows/     # deploy.yml — build and publish to GitHub Pages

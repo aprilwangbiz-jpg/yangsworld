@@ -1,0 +1,11 @@
+node_modules
+dist
+.DS_Store
+# old local photos from before Supabase (kept on this PC only)
+local-photos-backup
+# local Supabase settings
+.env.local
+# raw downloads / scratch source images — not part of the site
+*.crdownload
+img3133.jpg
+style.png

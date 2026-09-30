@@ -1,0 +1,46 @@
+:root {
+  /* Palette — sourced from the reference site's shipped CSS bundle */
+  --color-bg: #fafafa;
+  --color-ink: #1a1a1a;
+  --color-ink-soft: #444;
+  --color-muted: #666;
+  --color-faint: #888;
+  --color-line: #ccc;
+  --color-line-soft: #e0e0e0;
+  --color-paper: #ffffff;
+  --color-accent: #d94f30; /* warm red-orange marker accent, not in source — chosen to give the sketch a focal color */
+  --color-accent-soft: #f2c9bd;
+
+  /* Type */
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-hand: 'Caveat', cursive;
+  --font-hand-alt: 'Gloria Hallelujah', cursive;
+  --font-sketch: 'Cabin Sketch', cursive, sans-serif;
+  --font-marker: 'Fredericka the Great', cursive;
+  --font-note: 'Patrick Hand', cursive, sans-serif;
+  --font-scribble: 'Rubik Scribble', cursive;
+
+  --text-xs: 0.8rem;
+  --text-sm: 0.95rem;
+  --text-base: 1.05rem;
+  --text-lg: 1.35rem;
+  --text-xl: clamp(1.8rem, 1.4rem + 1.6vw, 2.6rem);
+  --text-display: clamp(3rem, 1.6rem + 6vw, 7rem);
+
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.75rem;
+  --space-4: 3rem;
+  --space-section: clamp(5rem, 3.5rem + 6vw, 10rem);
+
+  --radius-sm: 6px;
+  --radius-md: 14px;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-normal: 320ms;
+}
+
+:root[data-theme='dark'],
+:root:not([data-theme='light']) {
+  /* This build intentionally stays single-theme (light "paper") to match the
+     reference site's eggshell sketchbook aesthetic; dark mode is not offered. */
+}

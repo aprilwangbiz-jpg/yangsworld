@@ -131,8 +131,10 @@ GitHub); re-add them through the site if you want them online.
 
 - **Publishing changes:** commit and push to `main`; GitHub Actions rebuilds and
   republishes in 1–2 minutes (Actions tab shows progress).
-- **Supabase pauses after ~1 week without visits** on the free plan. Photos are
-  kept; open the project in the Supabase dashboard and click **Restore**.
+- **Supabase pauses after ~1 week without visits** on the free plan. The
+  `Keep Supabase awake` workflow pings it every 3 days to prevent that. If it
+  pauses anyway, photos are kept; open the project in the Supabase dashboard and
+  click **Restore**.
 - **Changing the shared password:** Supabase → Authentication → Users → delete
   the uploader user, then *Add user* again with the **same email** and the new
   password (*Auto Confirm User* on). Browsers that were unlocked get signed out

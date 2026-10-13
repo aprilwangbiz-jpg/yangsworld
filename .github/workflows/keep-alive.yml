@@ -1,11 +1,13 @@
 # Free-plan Supabase pauses after ~7 days with no activity. A tiny read every
-# 3 days resets that timer. Reuses the same Actions variables as deploy.yml.
+# 3 days resets that timer.
 name: Keep Supabase awake
 
 on:
   schedule:
     - cron: "0 9 */3 * *"
   workflow_dispatch:
+  push:
+    paths: [.github/workflows/keep-alive.yml]
 
 jobs:
   ping:
@@ -14,5 +16,6 @@ jobs:
       - run: |
           curl -fsS "$URL/rest/v1/photos?select=id&limit=1" -H "apikey: $KEY"
         env:
-          URL: ${{ vars.VITE_SUPABASE_URL }}
-          KEY: ${{ vars.VITE_SUPABASE_ANON_KEY }}
+          # Both values are public by design (already shipped in the site bundle).
+          URL: https://sjlwhwtpfaspaaegnzvb.supabase.co
+          KEY: sb_publishable_rWYxZ3wQeIylfOBHnNQtlA_HhGK__MA
